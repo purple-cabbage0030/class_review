@@ -1,0 +1,156 @@
+<html>
+<header>
+<title>초보자도 할 수 있는 SQL - 이홍주, 최한승</title>
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<style>
+body {font-family: 'Nanum Gothic', sans-serif;}
+h1 {margin : 1rem;}
+details {padding : 1rem; white-space: pre-wrap;}
+.question {margin : 2rem; padding : 1rem; border: 1px solid gray;}
+</style>
+</header>
+
+<body>
+
+<h1>[초보자도 할 수 있는 SQL - 이홍주, 최한승]</h1>
+
+<div class='question' id='Q1'>
+
+      <h4>1. 2005년 이후 채용된 사람 가운데 월급여(salary)가 10000 이상인 이들의 직무ID(job_id)를 고용된 날짜의 오름차순을 기준으로 출력하세요.</h4>
+      
+      <details>
+            <summary>모범 답안</summary>
+            <strong>select</strong> hire_date, job_id
+            <strong>from</strong> employees
+            <strong>where</strong> salary <strong>>=</strong> 10000 
+            <strong>and</strong> hire_date <strong>between</strong> '2005/01/01' <strong>and</strong> sysdate
+            <strong>order by</strong> hire_date <strong>asc</strong>;
+
+            HIRE_DATE                                JOB_ID
+            ------------------------------------ ------------------------------------------------
+            05/01/05                                 SA_MAN
+            05/01/30                                 SA_REP
+            05/03/10                                 SA_MAN
+            05/03/11                                 SA_REP
+            05/09/21                                 AD_VP
+            05/11/11                                 SA_REP
+            06/03/23                                 SA_REP
+            07/10/15                                 SA_MAN
+            08/01/29                                 SA_MAN
+      </details>
+
+</div>
+
+      
+<div class=question id=Q2>
+
+
+      <h4>2. 사원번호(employee_id)가 홀수인 사람 가운데 성(last_name)의 3번째 자리에 'e'가 들어가는 사람들의 소문자 이름과 성(first_name, last_name, as 이름, 성)과 전화번호를
+            이름 오름차순으로 출력하세요.</h4>
+
+      <details>
+            <summary>모범 답안</summary>
+            <strong>select</strong> lower(first_name) as 이름, lower(last_name) 성, phone_number
+            <strong>from</strong> employees
+            <strong>where</strong> mod(employee_id, 2)=1 
+            <strong>and</strong> substr(last_name, 3, 1)='e'
+            <strong>order by</strong> first_name <strong>asc</strong>;
+            
+            이름                   성                        PHONE_NUMBER
+            ------------------ --------------------- -----------------------------
+            britney              everett                650.501.2876
+            danielle            greene                011.44.1346.229268
+            david                lee                       011.44.1346.529268
+            jean                  fleaur                  650.507.9877
+            kevin                feeney                 650.507.9822
+            ki                      gee                      650.127.1734
+      </details>
+
+</div>
+
+
+<div class=question id=Q3>
+      
+      <h4> 3. 부서(department_id)가 IT(60)인 직원 중 월급(salary)이 5000 이상인 직원들의 employee_id, first_name, last_name, salary 정보를 월급 기준 오름차순으로 정렬하세요. </h4>
+      
+      <details>
+            <summary>모범 답안</summary>
+            <strong>select</strong> employee_id, first_name, last_name, salary
+            <strong>from</strong> employees
+            <strong>where</strong> department_id = 60 and salary >= 5000
+            <strong>order by</strong> salary <strong>asc</strong>;
+
+            EMPLOYEE_ID FIRST_NAME                 LAST_NAME                                  SALARY
+            ----------- -------------------------- ------------------------------------------ -----------------
+                    104 Bruce                       Ernst                                         6000
+                    103 Alexander             Hunold                                         9000
+      </details>
+      
+</div>
+
+      
+<div class=question id=Q4>
+      <h4>4. 전화번호(phone_number)의 시작이 011이고, 직원번호(employee_id)가 홀수인 직원들의<br>
+             employee_id, first_name, last_name, salary, phone_number 정보를 입사일(hire_date) 기준 오름차순으로 정렬하세요.</h4>
+      <details>
+            <summary>모범 답안</summary>
+            <strong>select</strong> employee_id, first_name, last_name, salary, phone_number
+            <strong>from</strong> employees
+            <strong>where</strong> mod(employee_id, 2) = 1 and phone_number like '011%'
+            <strong>order by</strong> hire_date <strong>asc</strong>;
+
+            EMPLOYEE_ID FIRST_NAME                               LAST_NAME                                              SALARY PHONE_NUMBER
+            ----------- ---------------------------------------- -------------------------------------------------- ---------- ----------------------------------------
+                    157 Patrick                                  Sully                                                    9500 011.44.1345.929268
+                    145 John                                     Russell                                                 14000 011.44.1344.429268
+                    147 Alberto                                  Errazuriz                                               12000 011.44.1344.429278
+                    159 Lindsey                                  Smith                                                    8000 011.44.1345.729268
+                    175 Alyssa                                   Hutton                                                   8800 011.44.1644.429266
+                    151 David                                    Bernstein                                                9500 011.44.1344.345268
+                    169 Harrison                                 Bloom                                                   10000 011.44.1343.829268
+                    153 Christopher                              Olsen                                                    8000 011.44.1344.498718
+                    177 Jack                                     Livingston                                               8400 011.44.1644.429264
+                    161 Sarath                                   Sewall                                                   7000 011.44.1345.529268
+                    171 William                                  Smith                                                    7400 011.44.1343.629268
+                    163 Danielle                                 Greene                                                   9500 011.44.1346.229268
+                    155 Oliver                                   Tuvault                                                  7000 011.44.1344.486508
+                    179 Charles                                  Johnson                                                  6200 011.44.1644.429262
+                    149 Eleni                                    Zlotkey                                                 10500 011.44.1344.429018
+                    165 David                                    Lee                                                      6800 011.44.1346.529268
+                    167 Amit                                     Banda                                                    6200 011.44.1346.729268
+                    173 Sundita                                  Kumar                                                    6100 011.44.1343.329268
+      </details>
+      
+</div>
+
+
+<div class=question id=Q5>
+
+      <h4>5. 부서ID가 10인 경우 20%, 20인 경우 15%, 30인 경우 5%의 급여가 인상되는데, <br>
+            급여가 인상된 부서에 속한 경우만 고려하여(department_id) 사원번호(employee_id)와 email을 인상된 급여와 함께 출력하세요.</h4>
+      
+      <details>
+            <summary>모범 답안</summary>
+            <strong>select</strong> employee_id, email, salary, decode(department_id, 10, salary*1.2, 20, salary*1.15, 30, salary*1.05) as 인상분
+            <strong>from</strong> employees
+            <strong>where</strong> department_id in (10, 20, 30);
+
+         EMPLOYEE_ID EMAIL                                              SALARY       인상분
+      ----------- -------------------------------------------------- ----------  ----------
+        200         JWHALEN                                                  4400       5280
+        201         MHARTSTE                                                13000      14950
+        202         PFAY                                                     6000       6900
+        114         DRAPHEAL                                                11000      11550
+        115         AKHOO                                                    3100       3255
+        116         SBAIDA                                                   2900       3045
+        117         STOBIAS                                                  2800       2940
+        118         GHIMURO                                                  2600       2730
+        119         KCOLMENA                                                 2500       2625                                   
+
+      </details>
+
+</div>
+
+
+</body>
+</html>
