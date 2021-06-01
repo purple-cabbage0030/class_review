@@ -1,3 +1,3 @@
 # class_review
 
-review & study python basics
+playdata data science course review
