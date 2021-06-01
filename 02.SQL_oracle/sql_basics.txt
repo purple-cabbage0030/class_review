@@ -1,0 +1,117 @@
+학습 내용
+
+1. DB 사용 방법
+    1) 용도
+        데이터를 저장해서 활용가능하게 하는 software
+        동시간 대에도 다수의 기기들이 접속해서 활용 가능하게 하는 software
+        제약조건도 설정 가능(숫자만/문자만 저장가능/데이터 길이/~만 허용/중복불가)
+    
+    2) 사용 방법
+        sql 문장으로 소통
+    
+    3) sql로 할 수 있는 내용
+        - 데이터 저장: insert
+        - 데이터 수정: update
+        - 데이터 삭제: delete
+        - 데이터 검색(query, 질의/ 중요!): select
+        ==> CRUD
+
+    4) 용어
+        a. DataBase[db] - 데이터
+        b. RDBMS - 관계형데이터베이스시스템
+                - oracle과 같은 제품 의미
+                - database를 사용 가능하게 해주는 시스템 (db라는 용어와 혼용하기도 함)
+    
+2. DB 벤더사
+    오라클 벤더사: oracle DB / mysql DB
+        오라클은 설치시에 window의 path라는 항목에 자동으로 등록됨
+        이 때문에 경로 상관 없이 sqlplus.exe(윈도우 실행 프로그램) 실행 가능
+            >sqlplus 일반ID/PW
+        
+        * tip
+        - 개인 노트북인 경우 oracle db를 미사용 시에는 중지해두기
+        - oracle db는 설치 후 path 등록 후 window os자체가 시작되면 자동 실행됨
+        - 간혹 실행이 자동 중지되는 경우도 있기는 함
+
+        - 오라클로 end user들에게 서비스 시 
+            기업에서 엔드유저들에게 서비스하기 위한 db들은 오라클 벤더사에서 돈 주고 구매
+            ==> 상용 db라고 함
+            설치 시 별칭 입력해서 부여
+        
+        - 교육용 오라클
+            ~XE라는 용어 포함
+            11gXE - 설치 시에 별도로 별칭 부여 없이 XE라는 이름으로 db 사용
+
+        
+        *** 관리의 중요성
+        - oracle db가 정상 실행 중인지 확인
+        1. window 메뉴 중 '서비스' 앱
+        2. OracleServiceEX & OracleXETNSListener 두 프로그램이 정상 실행돼야 함.
+
+    MS 벤더사: MS sql
+    IBM 벤더사: DB2
+    Monty program AB: Mariadb
+    큐브리드(국내db)
+    스마트 기기 DB: sqllite
+    웹 브라우저 자체 DB
+    ...
+
+3. 학습 방식
+    1) oracle DB 사용
+    2) sql문장 실습 툴
+        - 설치 시에 sqlplus라는 소통 툴 자동 설치됨
+        - cmd창에서 실습
+
+4. 현업 작업 방식
+    1) 요구 사항 도출 -> 데이터 구조 정리 -> 데이터 실 저장 구조로 설계(데이터베이스 모델링)
+    -> 설계한 내용을 기반으로 실제 DB에 사용 가능한 sql문장으로 개발(백업, 권장 확장자 *.sql)
+    -> db에 적용 -> DB의 내용을 사용 가능하게 Application 개발해서 CRUD로 서비스
+
+5. 실습 방식
+    1단계) oracle DB 실행
+
+    2단계) oracle DB 접속
+        db의 접속 id/pw 정보 필수(설치 시에 입력한 데이터는 pw하나/ 관리자급 id가 이미 세팅되어있음: system)
+        >sqlplus system/manager
+
+        * 실제 CRUD 작업은 end user가 사용 가능하게 하기 위한 데이터 활용
+        따라서 관리자 계정이 아닌 일반 user(개발자들이 사용 가능한) 계정 생성해서 활용 권장
+    
+    3단계) sql 문장으로 CRUD 작업
+        1) 존재하는 구조(table)로부터 데이터 검색
+            oracle db가 기본적으로 제공해주는 데이터 사용
+        2) 존재하는 구조(table)에 새로운 데이터 저장/수정/삭제
+        3) table 생성 및 삭제(제약조건 설정)
+        4) PLSQL(오라클 벤더사 자체 개발 언어)
+            oracle db 자체의 함수들 존재
+            PLSQL 능하면 oracle db에 사용자 정의 함수 개발이 가능
+
+    4단계) 접속 해제
+
+6. 실습한 sql 문장
+
+    1) admin 계정으로 db 접속
+    cmd>sqlplus system/manager
+
+    2) admin이 일반 Scott계정 생성 및 사용 가능한 table과 insert 로직 한 문장 실행
+    SQL> @C:\oraclexe\app\oracle\product\11.2.0\server\rdbms\admin\scott.sql
+
+    3) 실제 실습하게 되는 id/pw
+    > sqlplus SCOTT/TIGER
+    
+    4) 실습 table 구조
+        1. emp - 사원 정보
+            사번 empno/ 사원명 ename/ 직무 job/ 상사사번 mgr/ 입사일 hiredate/
+            월급여 sal/ 특별상여금 comm(영업부 사원만 존재 확인 가능)/ 부서번호 deptno
+        2. dept - 부서 정보
+            부서 번호/ 부서명/ 부서위치
+            deptno/ dname/ loc
+        
+        emp와 dept의 관계는 연결되어 있음
+        - dept table의 deptno라는 부서 번호값을 emp table의 deptno가 참조
+        - 주종 관계: dept가 주(부모), emp가 종(자식)
+
+7. 필수 암기 용어
+    1) table
+    2) column - 세로, 속성 (열)
+    3) row - 가로, 행, (record, tuple이라고도 함)
