@@ -1,0 +1,72 @@
+DB연동
+
+1. 실습 준비
+    1) DB 설치 및 실행 중
+    2) python 개발 환경 구축
+        anaconda 설치 / python 설치
+        접속 db에 종속적인 driver 설치
+            드라이버는 db별로 다름. db벤더사가 제공하는 것.
+    3) python 코드로 db 연동 확인
+
+2. 설치 명령어
+    * cx_Oracle이라는 모듈 또는 패키지
+
+    1) python 연동되는 oracle drive 설치 여부 확인
+        >pip list
+        >conda list
+
+    2) 설치
+        >pip install cx_Oracle
+        >conda install cx_Oracle
+
+3. python 기반의 db연동 개발 단계
+    1단계: oracle 접속
+        db의 ip / id / pw가 필요. 개별 DB별 별칭(database service name, dns는 대소문자 구분 없음) / port number
+        로컬 시스템에서 축약된 표현: id/pw/dns
+            SCOTT/TIGER/XE
+            hr/hr/XE
+
+    2단계
+        접속된 db에 sql문장 실행
+
+    3단계
+        실행된 sql문장 결과값을 활용
+
+    4단계
+        사용했던 자원들 반납하는 로직 생략하면 안 됨!!
+        모든 user들이 기본적으로 지켜야 하는 매너 = 로그아웃 필수
+        자원 반납 안 할 경우엔 사용 안 하는 db접속 기능의 객체들이 메모리에 잔존... 불필요한 리소스
+
+4. python 특징
+    python은 내부적으로 모든 자료형을 객체 타입으로 관리
+    객체 - 데이터와 기능을 보유한 하나의 구조
+        ex) 학사 관리 프로그램
+            교수/학생/행정직... 다양한 서비스 로직 존재
+            정보 관리 프로그램을 만든다면?
+                class Student:
+                    def __init__(self, 이름, 학번, 학년,...):
+
+                class Professor:
+                    def __init__(self, ...):
+
+5. 실습 확장 단계
+    CRUD로직별로 함수 별도로 구현
+    insert/select/update/delete
+    
+6. 개발 시 고려 사항
+    driver 로딩 - import문장
+
+    connection 객체 생성 - 다수의 user가 공유하는 것은 금지. 접속 객체 하나를 유저 하나당 사용.
+    sql문장 실행 가능한 cursor 생성
+    sql문장 실행
+    데이터 활용
+    자원 반환
+
+    - 드라이버 로딩만 global, 함수와 독립적, 전역으로 실행할 수 있고 나머지는 local로 해야 함.
+
+
+
+# dept table의 제약 조건: deptno는 중복 불허
+# 이 테이블을 베이스로 crud 로직 구현
+# 파일 이름은 step05_dept_crud.py
+    예외처리를 꼼꼼하게 구현
