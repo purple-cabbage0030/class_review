@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- end user가 사용하는 다양한 device의 가로를 기준으로 비율을 최적화해서 자동으로 적용하는 설정-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Step01</title>
+    <style>
+        ul.a {list-style-type: circle;}
+        ul.b {list-style-type: square;}
+    </style>
+</head>
+
+
+<body>
+    <a href="https://docs.emmet.io/abbreviations/syntax/" target="_blank">
+        1. emmet 참고 사이트
+    </a><br>
+
+    <a href="https://www.w3schools.com/html/html_forms.asp" target="_blank">
+        2. html form 학습 사이트
+    </a>
+
+    <hr color='grey'>
+    
+    <h3>form tag 학습</h3>
+    
+
+    id/pw 입력하는 화면 구성<br>
+    - form tag 내부에 구현되는 모든 input, 입력되는 데이터를 그룹화해서 서버에 전송가능하게 하는 기본 틀<br>
+    - 입력 form / 어떤 서버의 어떤 프로그램에 데이터를 전송할지에 대한 서버 프로그램 정보 = action 속성
+    <form action="#"> <!-- # 은 아직 지정하지 않았다는 단순 표현 -->
+        id <input type="text"> <br>
+        pw <input type="password"> <br>
+
+        <!-- submit tag는 form tag 내부에 내장된 모든 입력 데이터를 
+            form 시작 tag의 action에 지정된 server 프로그램에 데이터 전송-->
+        <input type="submit" value="login">
+        <input type="reset" value="데이터 입력 취소/초기화">
+    </form><hr>
+
+
+    <h3>자주 사용되는 form tag</h3>
+        <ol>
+            <li>radio</li>
+            - 여러 개의 데이터 중 하나 선택할 수 있는 tag <br>
+            - 동일한 범주(name 속성 값을 동일하게) 내에서 하나 선택 <br>
+            - <font color='red'>name 속성은 매우 중요 - 서버단에서 client가 전송한 데이터를 구분하기 위한 이름으로 사용</font> <br>
+            - id 속성은 html 문서에서 tag를 구분하기 위한 고유한 별칭 부여 속성, name은 동일해도 괜찮지만 id는 다 달라야 한다. <br>
+            <input type="radio" name="과일" id="">사과 <br>
+            <input type="radio" name="과일" id="">수박 <br>
+            <input type="radio" name="과일" id="">딸기 <br>
+
+            <br>
+
+            <li>checkbox</li>
+            <input type="checkbox" name="과일" id="">사과 <br>
+            <input type="checkbox" name="과일" id="">수박 <br>
+            <input type="checkbox" name="과일" id="">딸기 <br>
+
+            <br>
+
+            <li>list</li>
+            - 순서가 있는 리스트 ol 없는 리스트 ul <br>
+            - 시작점 value 통해서 지정 가능 <br>
+            <ul>
+                <li id="item1">playdata</li>
+                <li id="item2">playdata</li>
+                <li id="item3">playdata</li>
+                <li id="item4">playdata</li>
+                <li id="item5">playdata</li>
+            </ul>
+
+            <br>
+
+            <ol>
+                <li value=100>hi</li>
+                <li>hey</li>
+            </ol>
+        </ol>
+
+
+    <hr size="2" color="grey">
+
+    <h3>CSS</h3>
+    <h4>Lists</h4>
+
+    <ul class='a'>
+        <li>Coffee</li>
+        <li>Tea</li>
+        <li>Coca Cola</li>
+    </ul>
+    <ul class='b'>
+        <li>Coffee</li>
+        <li>Tea</li>
+        <li>Coca Cola</li>
+    </ul>
+
+</body>
+</html>
