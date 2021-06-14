@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
+
+    <style>
+    body {font-family: 'Nanum Gothic', sans-serif;}
+    .icon-bar {
+    width: 100%;
+    background-color: rgb(8, 4, 17);
+    overflow: auto;
+    }
+
+    .icon-bar a {
+    float: left;
+    width: 20%;
+    text-align: center;
+    padding: 10px 0;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 25px;
+    }
+
+    .icon-bar a:hover {
+    background-color: rgba(72, 175, 235, 0.788);
+    }
+
+    .active {
+    background-color: #3290e9;
+    }
+
+    h2 {margin : 1rem;}
+    input {margin : 1rem;}
+
+    </style>
+</head>
+
+<body>
+    <div class="icon-bar">
+        <a class="active" href="#"><i class="fa fa-home"></i></a> 
+        <a href="https://www.instagram.com/leeeeeeeeeee_j/"><i class="fa fa-angellist"></i></a> 
+        <a href="https://github.com/purple-cabbage0030"><i class="fa fa-github-alt"></i></a> 
+        <a href="#"><i class="fa fa-apple"></i></a>
+        <a href="#"><i class="fa fa-dollar"></i></a> 
+    </div>
+
+    <h2 align=center>Welcome to Hongju's website!</h2>
+
+    <hr color="skyblue">
+
+    <form align=center action="login" method="post">
+        
+        서비스 이용은 로그인 후 가능합니다.<br><br>
+
+        <label>ID:</label>&nbsp;
+        <input type="text" id="ID" name="ID" value="이홍주"><br>
+
+        <label>PW:</label>&nbsp;
+        <input type="password" id="PW" name="PW" value="123"><br><br>
+
+        <input type="submit" value="log-in">
+
+    </form>
+
+</body>
+</html>
+
