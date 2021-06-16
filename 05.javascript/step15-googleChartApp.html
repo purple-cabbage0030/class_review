@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>    
+    <script type="text/javascript">
+        function draw(){
+
+            alert(typeof(document.getElementById('arrData').value));  // string
+            arrData = document.getElementById('arrData').value;
+            arrData = eval(arrData);   // 단일 따옴표라 parse 안됨. 데이터 구상부터 쌍따옴표로 하긔 ~~
+            console.log(typeof(arrData));   // object. 배열 객체로 변환
+            console.log(arrData[0]);   // index로 배열 데이터 활용 가능
+
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+            /* client들은 항상 새로운 다른 데이터를 요청
+            html에 고정 데이터를 적용하는 로직들은 일반적으로 뉴스등과 같은 정적 데이터
+            대표적으로 주식 등만봐도 실시간 새로운 데이터 지속적으로 서버로 부터 응답되서 차트가 새로 그려짐
+            개발자 관점에서
+                -1. 모든 코드를 새로 응답? 오답  2.코드는 유지 데이터만 응답? 정답
+            */ 
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable(arrData);
+                var options = {
+                    title: '나의 하루 일과'
+                };
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                chart.draw(data, options);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h3> step01 : 구글 차트 만들고 응용하기</h3>
+    <br><hr><br>
+    <button onclick="draw()">data 보기</button>
+    <br><hr><br>
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+    <input type="hidden" id="arrData" 
+           value="[['Task', 'Hours per Day'],['Work', 11],['Eat', 2],['Commute', 2],['Watch TV', 2],['잠', 7]]">
+    <hr color="red">
+<!-- 
+    <input type="text" id="arrData2" size="200"
+           value="text --- [['Task', 'Hours per Day'],['Work', 11],['Eat', 2],['Commute', 2],['Watch TV', 2],['잠', 7]]"> -->
+    <script>
+        function draw2(){
+            alert(document.getElementById('arrData').value);
+        }
+    </script>
+</body>
+</html>
