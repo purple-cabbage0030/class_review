@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find password</title>
+    <style>
+        * {
+            box-sizing: border-box
+        }
+
+        /* Add padding to containers */
+        .container {
+            padding: 16px;
+        }
+
+        /* Full-width input fields */
+        input[type=text],
+        input[type=password] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+        }
+
+        input[type=text]:focus,
+        input[type=password]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        /* Overwrite default styles of hr */
+        hr {
+            border: 1px solid #f1f1f1;
+            margin-bottom: 25px;
+        }
+
+        /* Set a style for the submit/register button */
+        .registerbtn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 16px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+        }
+
+        .registerbtn:hover {
+            opacity: 1;
+        }
+
+        /* Add a blue text color to links */
+        a {
+            color: dodgerblue;
+        }
+
+        /* Set a grey background color and center the text of the "sign in" section */
+        .signin {
+            background-color: #f1f1f1;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="#">
+        <div class="container">
+            <h1>Find password</h1>
+            <p>Please fill in this form to find your password.</p>
+            <hr>
+
+            <label for="email"><b>Email</b></label>
+            <input type="text" placeholder="Enter Email" name="email" id="email" required>
+
+            <hr>
+
+            <button type="submit" class="registerbtn" onclick="find_pw(email.value)">Find password</button>
+        </div>
+
+        <div class="container signin">
+        </div>
+    </form>
+
+    <script>
+        let person_all = {
+            "p1": {
+                "email": "john@naver.com",
+                "pw": 5566
+            },
+            "p2": {
+                "email": "js@google.com",
+                "pw": 5512
+            },
+            "p3": {
+                "email": "jw@naver.com",
+                "pw": 5513
+            },
+            "p4": {
+                "email": "yj@google.com",
+                "pw": 5515
+            }
+        };
+
+
+        function find_pw(c_email){
+            // let result = false;
+
+            for (p in person_all){
+                if (person_all[p].email == c_email){
+                    // result = true;
+                    alert("당신의 비밀번호는 " +person_all[p].pw+ "입니다.");
+                }
+            }
+            // if (true){
+            //     alert("당신의 비밀번호는 " +person_all[p].pw+ "입니다.");
+            // }
+            // else {
+            //     alert("가입되지 않은 정보입니다.");
+            // }
+        }
+    </script>
+
+</body>
+
+</html>
