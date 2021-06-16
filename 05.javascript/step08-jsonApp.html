@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>json 포맷 데이터를 form input tag에 출력하기</h3>
+
+    firstName: <input type="text" id="id1"> <br>
+    lastName: <input type="text" id="id2"> <br>
+    id: <input type="text" id="id3"> <br>
+
+    <br><hr><br>
+
+    아이디: <input type="text" id="pid"><br>
+    이름: <input type="text" id="pname"><br>
+
+    <!-- step 01 -->
+    <button value="1" onclick="print_data(this.value)">1</button>
+    <button value="2" onclick="print_data(this.value)">2</button>
+    <button value="3" onclick="print_data(this.value)">3</button>
+    <button value="4" onclick="print_data(this.value)">4</button>
+
+    <br><hr><br>
+    <!-- step 02 -->
+    <button value="p1" onclick="print_data2(this.value)">1</button>
+    <button value="p2" onclick="print_data2(this.value)">2</button>
+    <button value="p3" onclick="print_data2(this.value)">3</button>
+    <button value="p4" onclick="print_data2(this.value)">4</button>
+    <script>
+        var person = {
+            "firstName": "John",
+            "lastName": "Doe",
+            "id": 5566
+        };
+
+        // person이 참조하는 json객체의 개별 데이터를 각 text field에 출력하기 (동적 처리)
+        // .value - 검색된 tag에 value 속성이 유효한 경우 오른쪽 값을 왼쪽에 할당(대입)할 수 있는 메소드
+        document.getElementById("id1").value = person.firstName;
+        document.getElementById("id2").value = person.lastName;
+        document.getElementById("id3").value = person.id;
+
+        let person_all = {
+            "p1" : {
+                "name": "John",
+                "id": 5566
+            },
+            "p2" : {
+                "name": "Amy",
+                "id": 20
+            },
+            "p3" : {
+                "name": "Sam",
+                "id": 534
+            },
+            "p4" : {
+                "name": "Kay",
+                "id": 10
+            },
+        };
+
+        function print_data(no){
+            // alert(person_all['p'+no]);
+            // console.log(person_all['p'+no]);
+            document.getElementById("pid").value = person_all['p'+no].id;
+            document.getElementById("pname").value = person_all['p'+no].name;
+        }
+
+        function print_data2(no){
+            document.getElementById("pid").value = person_all[no].id;
+            document.getElementById("pname").value = person_all[no].name;
+        }
+    </script>
+
+</body>
+
+</html>
