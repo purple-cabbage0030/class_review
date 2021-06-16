@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>배열과 json을 서버에서 응답 받았을 때 실제 js에서 사용가능하게 하는 해결능력</h3>
+
+    <br><hr><br>
+    http protocol 기반의 server와 client의 통신 시에 서버가 응답하는 모든 데이터는 문자열로 간주. <br>
+    html/css/js도 서버가 client에게 응답 <br>
+
+    서버는 모든 표현을 string으로 인지해서 응답하면 브라우저가 어떤 언어인지 판단해서 처리 <br>
+    브라우저 내부에는 html/css/js 해석기가 존재함 <br><br>
+    <b>배열과 json을 서버에서 응답 받았을 때 문자열로 응답이 됨 <br>
+    따라서 js에서 사용 가능하게 객체로 변환해야 함 <br></b>
+    
+    <br><hr><br>
+
+
+    <script>
+        // step02- json 형식의 문자열이 서버로부터 응답됐을 때 json 실객체로 변환하는 기술
+        let person_all = `{
+            "p1" : {
+                "name": "John",
+                "id": 5566
+            },
+            "p2" : {
+                "name": "Amy",
+                "id": 20
+            },
+            "p3" : {
+                "name": "Sam",
+                "id": 534
+            },
+            "p4" : {
+                "name": "Kay",
+                "id": 10
+            }
+        }`;
+        // it 업계에서 json 객체로 변환시킬 때 권장하는 함수
+        // json 포맷 또는 배열 형식의 문자열만 json 객체로 변환시켜줌
+        // parse = 파싱, 파서라는 의미: 구문 해석해거 문법 확인 및 내용 이해의 전반을 의미
+        // 간혹 변환 작업도 포함
+        let person_all1 = JSON.parse(person_all);
+        console.log(person_all1.p1.name);
+
+
+        let person_all2 = eval("(" + person_all + ")");   // json 객체로 변환 시에는 문자열 앞 뒤를 소괄호 문자열로 묶는 표현 필수
+        console.log(person_all2.p1.name);
+        
+        /* eval()과 parse()의 차이
+        1. eval(): 따옴표 표현 제거하고 문법적으로 js 코드가 부합되면 모두 다 변환
+            해커들이 eval() 구현된 코드가 확인되면 parameter로 해킹...
+            보안 측면에서 부득이한 경우가 아니라면 eval() 사용 비추
+        2. parse(): json 포맷 또는 배열 형식 문자열에 한해서만 json 객체로 변환
+            key와 value가 단일 따옴표로 된 구조는 변환 불가(중요!!)
+            제공받는 데이터 셋이 json 포맷인 경우 쌍따옴표인지 반드시 체크해야 함
+        */
+        
+
+        // step01 - 배열/연산자 식 등을 js 코드로 변환하는 함수 eval
+        let arr = `[
+            ['Task', 'Hours per Day'],
+            ['Work', 11],
+            ['Eat', 2],
+            ['Commute', 2],
+            ['Watch TV', 2],
+            ['Sleep', 7]
+        ]`;
+        console.log(typeof(arr));   // string
+
+        // 데이터를 index로 활용 가능한 배열로 변환
+        arr = eval(arr);    // js 코드로 변환해주는 독특한 함수 eval
+        console.log(typeof(arr));    // object
+
+        // 문자열의 따옴표 제거 후에 적합한 js 코드로 실행시켜주는 함수
+        // eval("document.write(arr[2][0])");
+        // document.write(eval("5+10"));   // 15
+    </script>
+</body>
+
+</html>
