@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3> input tag 두 개 개발 후에 데이터값을 서로 바꾸는 기능 </h3>
+    <br><hr><br>
+
+    1. 동적 화면 구성: 버튼 클릭하면 input tag의 데이터가 서로 변경 <br>
+
+    2. 구현 및 실행 후 client가 버튼 클릭하는 동작이 있어야만 로직이 완전히 실행 <br>
+
+    3. 버튼 클릭(event) 시점은 정확히 언제인지 모름. 따라서 버튼에 감지기(listener) 세팅해야 함<br>
+        <a href="https://www.w3schools.com/jsref/met_element_addeventlistener.asp">w3schools</a>
+    
+    <br><hr><br>
+    <!--
+        js에서 tag들을 명확하게 구분하기 위한 방법
+        document 즉 html 문서를 의미하는 객체명을 활용
+        수많은 tag들을 명확하게 구분하는 별칭을 활용해서 찾음
+        value 속성은 client가 입력하면 입력된 데이터값을 보유하는 속성
+    -->
+    <input type="text" id="one" value="encore"> - 
+    <input type="text" id="two" value="playdata">
+
+    <br>
+    <!-- onclick ; 버튼 클릭하는 동작을 감지하는 속성, 감지기
+        따옴표 안에 click하면 실행되는 로직을 코딩. 사용자 정의 함수도 호출 가능-->
+    <button onclick="myfun()">change1</button>
+
+    <button onclick="myfun()">change2</button>
+
+    <script>
+        // step03 - return
+        function my3(){
+            return 1;
+        }
+        console.log(my3());
+        
+        //step02 - 파라미터 기준으로 함수 개발 및 호출 문법
+        function my1(v){
+            console.log(v);
+        }
+        // my1(1);
+        // my1('자바', 3);
+        // my1(); undefined
+
+        function my2(v1, v2){
+            // console.log(v2);
+            console.log(arguments)    // 함수의 파라미터 값을 보여주는
+        }
+        
+        // my2(1);     // undefined
+        // my2(2, 3);  // 3
+        // my2();      // undefined
+
+
+        // step01 - input tag의 동적 화면 구성
+        function myfun(){
+            // 문서에서 id가 one인 tag의 value 속성 값을 가져오는 코드
+            temp = document.getElementById("one").value;
+
+            document.getElementById("one").value 
+            = document.getElementById("two").value;
+
+            document.getElementById("two").value = temp;
+        }
+
+
+    </script>
+</body>
+</html>
+
+<!--
+함수
+1. 내장 함수(library)
+    1) alert()
+    2) document.write() - body에 출력 함수
+    3) console.log() - 개발자 디버깅용 브라우저 콘솔창에 출력 함수
+
+2. 사용자 정의 함수 개발 및 호출
+    1) function 함수명([...]){
+        로직
+    }
+
+    2) 익명함수
+    3) 구현하자마자 자동 실행되는 구조의 즉시실행 함수
+
+용어
+1. tag = element
+-->
