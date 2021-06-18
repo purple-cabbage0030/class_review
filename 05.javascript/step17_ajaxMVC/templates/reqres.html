@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <button onclick="myAjax()">비동기로 데이터 요청</button>
+    <button onclick="myAjax2()">비동기로 사번 입력해서 사원명, 급여 검색 요청</button>
+
+    <br><hr><br>
+
+    <div id="demo"></div>
+
+    <br><hr><br>
+
+    이름 <input type="text" id="uname"> <br>
+    나이 <input type="text" id="uage"> <br>
+
+    <br><hr><br>
+    <h3>직원 정보</h3>
+    사원번호 <input type="text" id="empno"> <br>
+    사원명 <input type="text" id="ename"> <br>
+    급여 <input type="text" id="sal"> <br>
+
+    <br><hr><br>
+    <!-- 비동기로 직원 등록 기능 개발
+        버튼 클릭 시 등록 정보들을 서버에 전송
+        등록 완료 후 정상 응답인 경우 직원 정보에 자동 출력되도록
+    -->
+    <h3>직원 등록</h3>
+
+    사원번호 <input type="text" id="newEmpno"> <br>
+    사원명 <input type="text" id="newEname"> <br>
+    급여 <input type="text" id="newSal"> <br>
+
+    <button id="insertBtn" onclick="insertEmp()">등록</button>
+
+    <br><hr><br>
+    <!-- 직원 정보 수정-->
+    <h3>직원 정보 수정</h3>
+
+    사원번호 <input type="text" id="upempno"> <br>
+    급여 <input type="text" id="upSal"> <br>
+
+    <button id="updateBtn" onclick="updateEmp()">수정</button>
+
+    <br><hr><br>
+    <h3>직원 정보 삭제</h3>
+
+    사원번호 <input type="text" id="delempno"> <br>
+
+    <button id="delBtn" onclick="deleteEmp()">직원 퇴사</button>
+
+    <script>
+        // 직원 정보 삭제
+        function deleteEmp(){
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("sal").value = data.sal;
+                }
+            };
+            xhttp.open("POST", "delete");
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            queryString = "empno="+document.getElementById("empno").value
+                        +"&sal="+document.getElementById("upSal").value;
+            xhttp.send(queryString);
+        }
+
+        // 직원 정보 수정
+        function updateEmp(){
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("sal").value = data.sal;
+                }
+            };
+            xhttp.open("GET", "update");
+            // xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            // queryString = "&sal="+document.getElementById("upSal").value;
+            xhttp.send();
+        }
+
+        // 직원 등록
+        function insertEmp(){
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    data = this.responseText;
+                    data = JSON.parse(data);
+
+                    document.getElementById("empno").value = document.getElementById("newEmpno").value;
+                    document.getElementById("ename").value = data.ename;
+                    document.getElementById("sal").value = data.sal;
+                }
+            };
+            xhttp.open("POST", "insert");    // http://ip:port/insert 형식으로 호출하겠다는 세팅
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            queryString = "empno="+document.getElementById("newEmpno").value
+                        +"&ename="+document.getElementById("newEname").value
+                        +"&sal="+document.getElementById("newSal").value;
+            // alert(queryString); 
+            xhttp.send(queryString);
+        }
+
+        function myAjax() {
+
+            const xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+
+                    data = this.responseText;
+                    document.getElementById("demo").innerHTML = data;
+
+                    data = JSON.parse(data);
+                    document.getElementById("uname").value = data.name;
+                    document.getElementById("uage").value = data.age;
+
+                }
+            };
+
+            xhttp.open("GET", "getdata");
+            xhttp.send();
+        }
+
+        function myAjax2() {
+            const xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    data = this.responseText;
+                    data = JSON.parse(data);
+                    document.getElementById("ename").value = data.ename;
+                    document.getElementById("sal").value = data.sal;
+
+                }
+            };
+            xhttp.open("POST", "getemp");
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            xhttp.send("empno="+document.getElementById("empno").value);
+        }
+    </script>
+</body>
+
+</html>
