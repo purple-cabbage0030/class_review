@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <div id="result"></div>
+
+    <script>
+        // Check browser support
+
+        // 현재 실행되는 브라우저가 Storage() 함수를 지원하는지 검증
+        // function Storage() { [native code] }
+        if (typeof (Storage) !== "undefined") {   // undefined, 없다는 의미
+            // 브라우저의 local Storage에 key value 쌍으로 저장 setItem(key, value)
+            // session에 저장하려면 sessionStorage.setItem ~
+            localStorage.setItem("lastname", "한글");
+            // 브라우저 메모리에 저장된 key로 데이터 획득 getItem
+            document.getElementById("result").innerHTML = localStorage.getItem("lastname");
+        } else {
+            document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+        }
+    </script>
+
+</body>
+
+</html>
