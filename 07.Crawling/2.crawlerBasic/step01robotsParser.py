@@ -37,7 +37,7 @@ import urllib.robotparser
 # robots.txt 파일을 위한 RobotFileParser 클래스
 rp = urllib.robotparser.RobotFileParser()
 
-# 해당 사이트 크로링 해도 되는지 확인
+# 해당 사이트 크롤링 해도 되는지 확인
 
 # http://wikibook.co.kr/ 사이트 크롤링 가능 여부 확인
 rp.set_url("http://wikibook.co.kr/robots.txt")
