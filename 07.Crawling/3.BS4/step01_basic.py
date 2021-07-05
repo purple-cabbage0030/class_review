@@ -1,4 +1,15 @@
 '''
+html 문서의 tree 구조로 특정 tag 및 text data를 찾아가는 형식은 DOM 기반
+- DOM: Document Object Model
+    html의 모든 요소(tag, 속성, text)를 객체로 관리
+    실시간 가변적인 동적 화면 구성에 필수 핵심 기술 / 해킹 필수 기술
+    화면을 변경시키는 기술 셋
+    스펙: w3c에서 제시, dom 기술을 지원하는 개발 언어들은 모든 언어가 지원
+    수업 시간에는 js 기반의 dom 처리 학습 중
+    - id로 특정 tag 검색해서 착출: document.getElementById("고유한 id")
+    - next_sibling: 현 위치 상에서 다음 동생 검색
+
+
 html의 필수 표현법
     . : class 속성
     # : id 속성
@@ -47,7 +58,7 @@ html 문서 상에서 css는 중복 표현이 가능: 이름이 동일하게 적
 
 ('.redColor p')[0]: 리스트 내 첫 번째에 해당하는 p 태그 반환
 
-하위 text 데이터 출력을 위해 .string 또는 get_text() 이용 가능
+하위 text 데이터 출력을 위해 .string 또는 get_text() 이용 가능 (text인 경우에만 데이터 착출)
 '''
 print(soup.select('.redColor'))   # [<span class="redColor"><p>웹페이지3</p></span>]
 print(soup.select('.redColor p'))   # [<p>웹페이지3</p>]
