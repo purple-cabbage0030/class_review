@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    input tag 만들고 입력된 데이터가 encore라면 '안녕하세요' 출력<br>
+    non-encore라면 '어디서 오셨어요?' 출력<br>
+
+    <!-- input form tag or 한 행 입력 text field라고 함
+        id라는 속성은 js 상에서 주로 사용
+        name 속성은 서버단에서 주로 사용, 크롤링 API 상에서도 사용... 거의 비슷한 맥락 -->
+    <input type="text" name="data" id="data">
+    <button onclick="data_check()" id="btn" name="btn">입력</button>
+
+    <br><hr><br>
+    <div id="view_data"></div>
+
+    <script>
+        function data_check(){
+            v = document.getElementById("data").value
+            if(v == 'encore'){
+                document.getElementById("view_data").innerText = "안녕하세요";
+            }else{
+                document.getElementById("view_data").innerText = "어디서 오셨어요?";
+            }
+        }
+
+    </script>
+</body>
+</html>
