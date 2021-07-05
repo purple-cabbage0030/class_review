@@ -20,6 +20,10 @@ def review():
     # * : 문자가 미존재 또는 무한대 존재(0~*)
     # ? : 문자가 없거나 하나이거나(0 or 1)
     
+    # https://stackoverflow.com/questions/3075130/what-is-the-difference-between-and-regular-expressions
+    # https://j2doll.tistory.com/646
+
+
 
     print("2 --- " + d2) # book info 
 
