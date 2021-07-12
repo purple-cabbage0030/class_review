@@ -1,0 +1,23 @@
+-- json 파일의 마지막 line에 enter 필수
+-- 현업에서 주로 사용하는 구조, raw data 백업 필요
+
+-- curl 명령창에서 cmd라는 명령어로 웹과 소통하는 표준 기술
+-- bulk 파일을 curl 통해서 빈번히 작업
+-- 권장 구조
+    1. json
+    2. ES에 저장하는 명령어
+        json포맷 헤더 정보, 확장자 포함한 file명
+
+curl -XPOST http://localhost:9200/_bulk -H "Content-Type: application/json" --data-binary @bulk_bank.json
+curl -XPOST "http://localhost:9200/bank/_bulk?pretty" -H "Content-Type: application/json" --data-binary @bulk_bank.json
+
+curl -XPOST http://localhost:9200/_bulk -H "Content-Type: application/json" --data-binary @bulk_accounts.json
+curl -XPOST "http://localhost:9200/account/_bulk?pretty" -H "Content-Type: application/json" --data-binary @bulk_accounts.json
+
+
+참고
+https://victorydntmd.tistory.com/316
+
+bank index를 기반으로 3가지 이상의 집계 문장 개발
+- 제출 포맷: 이름.es
+- 제출 후 알고리즘 / 프로젝트 etc 자유롭게 작업
