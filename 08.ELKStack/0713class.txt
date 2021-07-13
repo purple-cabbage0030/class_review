@@ -1,0 +1,22 @@
+실습 내용(step01_basic.py)
+
+1. 기술 문서를 보고 es에 crud
+    1) https://elasticsearch-py.readthedocs.io/en/v7.13.3/
+    2) library install
+    3) 기본 테스트
+
+2. 실전 데이터 활용
+    4) 우리 데이터로 crud 작업
+        - vsc의 콘솔창에서 결과 출력
+    5) 결과는 웹 브라우저로 실행
+        - html / css 
+        - 서버 데이터를 client 브라우저에 응답해서 출력(flask)
+        - 페이지 이동이 아닌 단순 비동기
+
+3. csv 파일을 es에 한 번에 적용하기
+    - empAll.csv
+
+4. 한글 형태소 분석
+    1. java 기반 플러그인 필요
+    2. 개발 환경에 jdk라는 자바 개발 환경이 설치되어야 함
+        설치 후 path 등록 필요
