@@ -263,3 +263,58 @@ GET my_nori/_analyze
   "analyzer": "nori_my_token",
   "text": "엘지전자"
 }
+
+DELETE nori_analyzer
+PUT nori_analyzer
+{
+  "settings":{
+    "index": {
+      "analysis": {
+        "analyzer": {
+          "nori_stoptags_analyzer": {
+            "tokenizer": "nori_tokenizer"
+          }
+        }
+      }
+    }
+  }
+}
+GET nori_analyzer/_analyze
+{
+  "analyzer": "nori_stoptags_analyzer",
+  "text": "그대 이름은 장미"
+}
+# ---------------------------
+DELETE nori_analyzer
+PUT nori_analyzer
+{
+  "settings":{
+    "index": {
+      "analysis": {
+        "analyzer": {
+          "nori_stoptags_analyzer": {
+            "tokenizer": "nori_tokenizer",
+            "filter": [
+              "nori_posfilter"
+            ]
+          }
+        },
+        "filter": {
+          "nori_posfilter": {
+            "type": "nori_part_of_speech",
+            "stoptags": [
+              "J"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+GET nori_analyzer/_analyze
+{
+  "analyzer": "nori_stoptags_analyzer",
+  "text": "그대 이름은 장미"
+}
+
+# http://kkma.snu.ac.kr/documents/?doc=postag
