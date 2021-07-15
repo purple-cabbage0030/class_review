@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <button onclick="dataReq()">클릭</button>
+
+    <br><hr><br>
+    
+    <!-- 
+        tag의 속성으로 css를 적용하는 inline 방식
+        tag가 존재하나 안 보이게 하는 방식
+        단 display: block인 경우 tag가 보임 
+
+        style="display: none;
+    -->
+    <!--  아쉬운 구조
+
+        - div tag 등으로 tr을 동적으로 table 에 add 시에 보기 좋게 적용이 잘 안 되는 현상 발생
+
+        <table id="t" border="1" style="display: none;">
+            <tr><th>key</th></tr> 
+            <div id="dataview"> </div>
+        </table> 
+    -->
+
+
+    <!-- header 부분 문구를 보유하고 있는 table 하나 미리 구성 후에 style="display: none 으로 안 보이게 함 
+    단, 정상 응답 받았을때 js 코드로 style="display: none 값을 block로 변환
+    width: 7% - 브라우저 가로를 기준으로 전체 7% 비율로 조절
+    -->
+    <table id='t' border="1" style="display: none;width: 7%" >
+        <tr><th>key</th></tr>            
+    </table>
+    <div id="dataview">
+        
+    </div>
+
+    <script>
+        /* 
+        1단계 : 응답 받은 데이터를 json 포멧의 객체로 변환
+        2단계 : key로 데이터들을 뽑아서 div tag에 html의 table로 생성
+        */
+        function dataReq() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    data = this.responseText;  //문자열로 응답 
+                    data = "["+data+"]";   // json 배열 형식으로 변환 왜? [] 없이는 json 객체로 변환 불가
+                    data = eval("(" + data + ")")  // json 배열 객체로 변환 , 따라서 index값으로 데이터 하나하나 뽑아서 사용 
+
+                    // 응답 성공 : table 스타일을 block 값으로 수정후에 보이게 처리
+                    // style="display: none;"   -> style="display: block;"
+                    document.getElementById("t").style.display = "block";
+                    
+                    //json이 보유한 데이터값들을 row별로 구성하고자 함 즉 table 형식으로 구성
+                    // div에 추가할 경우 가급적 완성된 tag의 table로 구성하는 코드 권장
+                    tb = "<table border='1' style='width: 7%'>";
+                    
+                    //데이터 존재 수 만큼 반복해서 결과값을 tr로 구성
+                    //tb 변수에 적재 
+                    /*
+                    <table border='1' style='width: 7%'>
+                        <tr><td>236</td></tr>  
+                        이런 형식으로 지속적인 적재 
+                    */
+                    for(i=0; i < data.length; i++){
+                        tb = tb + "<tr><td>"+ data[i].key + "</td></tr>"
+                    }
+
+                    //table 시작 + tr 9개 tag로만 구성 따라서 </table> 적용
+                    //innerHTML은 tag 형식의 문자열을 브라우저에 tag 즉 렌더링 하는 속성 
+                    document.getElementById("dataview").innerHTML = tb + "</table>";
+                }
+            };
+            xhttp.open("GET", "dataget");
+            xhttp.send();
+        }
+    </script>
+
+</body>
+
+</html>
