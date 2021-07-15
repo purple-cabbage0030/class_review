@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="dataReq()">클릭</button>
+
+    <br><hr><br>
+
+    <table id= "t" border="1" style="display: none;">
+        <!-- <tr><th>key</th><th>doc_count</th></tr> -->
+        <!-- <div id="dataview"></div> -->
+
+    </table>
+    
+    <script>
+        function dataReq() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    data = this.responseText;
+                    data = eval("(" + data + ")")
+                    
+                    document.getElementById("t").style.display = 'block';
+                    
+                    tb = '<tr><th>key</th><th>doc_count</th></tr>';
+                    for(i=0; i < data.length; i++) {
+                        tb = tb + "<tr><td>" + data[i].key + "</td><td>" + data[i].doc_count + "</td></tr>"
+                    }
+
+                    document.getElementById("t").innerHTML = tb;
+                }
+            };
+            xhttp.open("GET", "dataget");
+            xhttp.send();
+        }
+
+
+    </script>
+</body>
+</html>
