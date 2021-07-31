@@ -1,0 +1,26 @@
+cmd에서 작업
+
+conda info --envs = conda env list
+conda create -n 가상환경이름 패키지명 python=버전
+
+
+가상환경에 패키지 설치
+	pip install 패키지명==버전 패키지명 ...
+	conda install 패키지명=버전
+	cf) 콘다가 안정성이 좀 더 있다...
+
+pypi.org
+	pip로 install할 수 있는 패키지 검색할 수 있는 사이트
+
+conda repository
+	https://anaconda.org/anaconda/repo
+	conda install로 다운 받을 수 있는 패키지 검색
+
+	conda install -c conda-forge pandas scikit-learn matplotlib seaborn jupyter
+	
+	pip show 패키지명
+	conda list 패키지명
+
+동일 가상환경 만들기
+	conda env export --name 가상환경이름 > 파일명.yml
+	conda env create -f 파일명.yml
