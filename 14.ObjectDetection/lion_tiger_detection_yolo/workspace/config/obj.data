@@ -1,0 +1,5 @@
+classes = 2
+train = /content/drive/MyDrive/ColabNotebooks/object_detection_src/lion_tiger_detection_yolo/workspace/config/train_list.txt
+valid = /content/drive/MyDrive/ColabNotebooks/object_detection_src/lion_tiger_detection_yolo/workspace/config/val_list.txt
+names = /content/drive/MyDrive/ColabNotebooks/object_detection_src/lion_tiger_detection_yolo/workspace/config/obj.names
+backup = /content/drive/MyDrive/ColabNotebooks/object_detection_src/lion_tiger_detection_yolo/workspace/weight_backup

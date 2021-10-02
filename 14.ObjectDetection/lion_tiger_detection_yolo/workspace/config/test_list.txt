@@ -1,0 +1,3 @@
+/content/images/test/lion_63.jpg
+/content/images/test/tiger_48.jpg
+/content/images/test/lion_tiger_29.jpg
