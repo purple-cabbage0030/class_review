@@ -1,0 +1,46 @@
+python interpretor
+
+control+`
+
+- 프로젝트 생성
+   - django-admin  startproject  config  . 
+- app 생성
+   - python  manage.py  startapp  exam
+- 설정 변경
+   - config/settings.py
+   - 생성한 app등록
+      - INSTALLED_APPS 에 생성한 APP이름을 문자열로 등록
+      - LANGUAGE_CODE: ko-kr
+      - TIME_ZONE: 'Asia/Seoul'
+- Database 에 기본 테이블을 생성
+      - python  manage.py  migrate
+- 관리자 계정 생성
+      - python  manage.py  createsuperuser
+	- 사용자이름: root
+	- 이메일주소: 형식에 맞춰 적당히
+	- Password: 1111 
+- 서버 실행
+   - python   manage.py   runserver
+   - 종료: control+c
+http://127.0.0.1:8000/admin
+root/1111
+
+--------코드 작성
+- config/urls.py
+   - exam app에 접근하는 url 패턴을 등록
+- exam/urls.py 파일 생성
+- exam/views.py -> View 코드를 작성 (hello())
+- exam/urls.py에 hello View함수를 등록
+- 서버를 실행
+    - python  manage.py  runserver
+    - http://127.0.0.1:8000/exam/hello1
+----------------
+exam 아래 폴더생성:  templates/exam
+templates/exam/greeting.html
+
+
+4:00
+
+
+
+
