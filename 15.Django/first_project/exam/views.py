@@ -25,3 +25,11 @@ def hello(request):
     # HttpResponse 생성
     response = HttpResponse(response_txt)
     return response
+
+def hello2(request):
+    curr = datetime.now()
+    curr_txt = curr.strftime('%Y년 %m월 %d일 %H시 %M분 %S초')
+    
+    # templates는 경로에 안 쓴다
+    response = render(request, 'exam/greeting.html', {'current':curr_txt})
+    return response
