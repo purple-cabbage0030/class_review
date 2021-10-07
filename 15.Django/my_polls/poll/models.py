@@ -15,6 +15,11 @@ class Question(models.Model):
     question_text = models.CharField(max_length=200)   # CharField: 문자열(varchar)
     pub_date = models.DateTimeField(auto_now_add=True)   # DateTimeField: 일시타입(Date) - auto_now_add: insert될 때의 일시를 자동으로 등록
 
+    # initializer가 자동으로 만들어짐
+    # def __init__(self, question_text="", pub_date=None):
+    #     self.question_text = question_text
+    #     self.pub_date = pub_date
+
     # 매직메소드
     def __str__(self):
         return self.question_text
@@ -28,6 +33,7 @@ class Choice(models.Model):
     choice_text = models.CharField(max_length=200)
     vote = models.PositiveIntegerField(default=0)   # PositiveIntegerField: 정수 가운데 양수만
     question = models.ForeignKey(to=Question, on_delete=models.CASCADE)   # ForeignKey: ForeignKey필드 선언. to: 부모테이블, on_delete: 참조 데이터 삭제 시 어떻게 할지(cascade- 같이 지워라)
+
 
     # 매직메소드
     def __str__(self):
