@@ -1,37 +1,32 @@
-<!-- Template -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>설문목록</title>
-</head>
-<body>
-    <h1>설문목록</h1>
-    <!-- view에서 전달한 question list 값들을 출력 -->
-    {# 장고 주석 #}
-    {% comment %}
-        장고 주석
-    {% endcomment%}
+{% extends "layout.html" %}
 
-    설문 개수: {{question_list|length}} 개
+{% block title %}설문 목록{% endblock title %}
 
-    <ul>
-        {% for question in question_list %}
-            <li>
-                <a href="/poll/vote_form/{{question.pk}}">  <!-- /poll/vote_form/question의id -->
-                    {{question.pk}}. {{question.question_text}}
-                </a>
-                <!-- {{question.question_text|truncatewords:1}} <br>
-                {{question.question_text|truncatechars:6}} <br>
-                {{question.pub_date}} <br> -->
-                {{question.pub_date|date:'Y-m-d'}} <br>
-                <!-- {{question.pub_date|time:'H-i-s-A'}} <br> -->
-            </li>
-        {% empty %}
-            등록된 설문이 없습니다.
-        {% endfor%}
-    </ul>
-</body>
-</html>
+{% block contents %}
+<h1>설문목록</h1>
+<!-- view에서 전달한 question list 값들을 출력 -->
+{# 장고 주석 #}
+{% comment %}
+    장고 주석
+{% endcomment%}
+
+설문 개수: {{question_list|length}} 개
+
+<ul>
+    {% for question in question_list %}
+        <li>
+            {# url "app_name:path_name" [path파라미터에 넘길 값]#}
+            <a href="{% url 'poll:vote_form' question.pk %}">  <!-- /poll/vote_form/{{question.pk}}       /poll/vote_form/question의id -->
+                {{question.pk}}. {{question.question_text}}
+            </a>
+            <!-- {{question.question_text|truncatewords:1}} <br>
+            {{question.question_text|truncatechars:6}} <br>
+            {{question.pub_date}} <br> -->
+            {{question.pub_date|date:'Y-m-d'}} <br>
+            <!-- {{question.pub_date|time:'H-i-s-A'}} <br> -->
+        </li>
+    {% empty %}
+        등록된 설문이 없습니다.
+    {% endfor%}
+</ul>
+{% endblock contents %}

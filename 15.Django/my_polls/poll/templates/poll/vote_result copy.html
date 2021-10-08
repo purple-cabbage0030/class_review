@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결과</title>
+</head>
+<body>
+    <h1>투표 결과</h1>
+    <h2>{{question.pk}}. {{question.question_text}}</h2>
+    <table width="150">
+        {% for choice in question.choice_set.all %}
+        <tr>
+            <td>{{choice.choice_text}}</td>
+            <td>{{choice.vote}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="/poll/list">설문 목록</a>
+
+</body>
+</html>
