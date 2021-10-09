@@ -16,7 +16,7 @@
     {% for question in question_list %}
         <li>
             {# url "app_name:path_name" [path파라미터에 넘길 값]#}
-            <a href="{% url 'poll:vote_form' question.pk %}">  <!-- /poll/vote_form/{{question.pk}}       /poll/vote_form/question의id -->
+            <a href="{% url 'poll:vote' question.pk %}">  <!-- /poll/vote_form/{{question.pk}}       /poll/vote_form/question의id -->
                 {{question.pk}}. {{question.question_text}}
             </a>
             <!-- {{question.question_text|truncatewords:1}} <br>
