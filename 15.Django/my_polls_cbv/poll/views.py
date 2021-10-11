@@ -19,7 +19,7 @@ class QuestionListView(ListView):
 #   - get 방식: form을 전달
 #   - post 방식: 투표 처리
 class VoteView(View):
-    # get 요청 처리 메소드
+    # get 요청 처리 메소드 (if request.method == 'get':)
     def get(self, request, *args, **kwargs):
         # **kwargs: path parameter를 조회
         question_id = kwargs['question_id']
@@ -30,7 +30,7 @@ class VoteView(View):
             # 없는 question id로 조회한 경우
             return render(request, 'poll/error_page.html', {'error_message':'없는 설문 번호를 요청했습니다.'})
 
-    # post 요청 처리 메소드
+    # post 요청 처리 메소드 (if request.method == 'post':)
     def post(self, request, *args, **kwargs):
         # 요청 파라미터 조회: choice의 id(choice라는 이름으로 넘어옴), question_id
         # choice_id = request.POST['choice']
