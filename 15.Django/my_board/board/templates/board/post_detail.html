@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block title %}글 상세{% endblock title %}
+
+{% block contents %}
+<!-- object 변수: 조회 결과를 가지고 있는 Model(Post)객체 -->
+<h1 style="border-bottom: 1px solid gray; padding-bottom: 10px;">{{object.pk}}. {{object.title}}</h1>
+<div style="border-bottom: 1px solid gray; padding-bottom: 10px;">
+    <b>작성 일시</b>: {{object.create_at | date:"Y/m/d H:i:s"}}
+    <b>수정 일시</b>: {{object.update_at | date:"Y/m/d H:i:s"}}
+    <b>카테고리</b>: {{object.category.category_name}}
+</div>
+<div style="border-bottom: 1px solid gray; padding-bottom: 10px;">
+    {{object.content | linebreaksbr}}
+</div>
+
+{% endblock contents %}
