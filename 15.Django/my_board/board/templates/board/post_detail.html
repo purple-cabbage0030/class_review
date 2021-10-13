@@ -13,5 +13,7 @@
 <div style="border-bottom: 1px solid gray; padding-bottom: 10px;">
     {{object.content | linebreaksbr}}
 </div>
-
+<p style="padding:5px">
+    <a href="{% url 'board:update' object.pk %}" class="btn btn-primary">글 수정</a>
+</p>
 {% endblock contents %}
