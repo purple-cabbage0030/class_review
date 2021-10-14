@@ -1,6 +1,6 @@
 # board/views.py
-from django.shortcuts import render
-from django.views.generic import DetailView, CreateView, UpdateView
+from django.shortcuts import redirect, render
+from django.views.generic import DetailView, CreateView, UpdateView, ListView
 from django.urls import reverse_lazy   # urls.py에 등록된 path의 이름으로 url을 만들어서 반환하는 함수
 
 from .models import Post
@@ -39,3 +39,24 @@ class PostUpdateView(UpdateView):
     def get_success_url(self):   # 수정 처리 후 redirect 방식으로 이동할 url을 반환
         return reverse_lazy('board:detail', args=[self.object.pk])
         # self.object: update된 model 객체
+
+# 글 삭제 view -> 함수형으로
+# CBV일 경우 DeleteView 상속받아서 - template_name='삭제확인페이지' (get방식 요청 시 처리), success_url='삭제 후 이동할 view url' (post방식)
+def delete_post(request, post_id):
+    """
+    path 파라미터로 삭제할 게시물의 id를 받아서 삭제 처리
+    """
+    post = Post.objects.get(pk=post_id)
+    post.delete()
+    return redirect('/')   # 삭제 후 home으로 이동
+
+# 글 목록 보기 -> ListView 상속
+# Post.objects.all() 조회한 후 template_name의 페이지로 이동하면서 데이터를 context_data(name: object_list, post_list)로 전달
+class PostListView(ListView):
+    template_name = 'board/post_list.html'   # 목록 페이지 (응답 페이지)
+    model = Post   # 데이터를 조회할 Model클래스 지정
+    paginate_by = 10   # 한번에 10개씩만 조회하도록 설정 - http://127.0.0.1:8000/board/list?page=번호
+
+# def list(request):
+    # p_list = Post.objects.all()
+    # return render(request, 'template', {'object_list':p_list})

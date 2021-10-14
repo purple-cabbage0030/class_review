@@ -15,5 +15,6 @@
 </div>
 <p style="padding:5px">
     <a href="{% url 'board:update' object.pk %}" class="btn btn-primary">글 수정</a>
+    <a href="{% url 'board:delete' object.pk %}" class="btn btn-danger" onclick="return confirm('정말 삭제하겠습니까?')">글 삭제</a>
 </p>
 {% endblock contents %}

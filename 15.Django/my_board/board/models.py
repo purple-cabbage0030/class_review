@@ -15,7 +15,7 @@ class Category(models.Model):
 
     def __str__(self):
         # 출력되는 값 설정
-        return f"{self.category_id}. {self.category_name}"
+        return self.category_name
 
     class Meta:
         ordering=['category_id']   # 기본 정렬방식 지정
@@ -32,3 +32,6 @@ class Post(models.Model):
 
     def __str__(self):
         return f"{self.id}. [{self.category.category_name}] {self.title}"
+
+    class Meta:
+        ordering=['-id']   # id 내림차순 정렬
