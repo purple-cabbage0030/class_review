@@ -1,4 +1,5 @@
 # board/views.py
+from django.core import paginator
 from django.shortcuts import redirect, render
 from django.views.generic import DetailView, CreateView, UpdateView, ListView
 from django.urls import reverse_lazy   # urls.py에 등록된 path의 이름으로 url을 만들어서 반환하는 함수
@@ -52,6 +53,8 @@ def delete_post(request, post_id):
 
 # 글 목록 보기 -> ListView 상속
 # Post.objects.all() 조회한 후 template_name의 페이지로 이동하면서 데이터를 context_data(name: object_list, post_list)로 전달
+# pagenate_by - 페이징 처리 => Paginator 객체를 생성해서 context data로 저장
+# 페이지번호 링크 처리를 위한 값들을 context data의 Paginator 객체로 추출한 뒤 template에 전달
 class PostListView(ListView):
     template_name = 'board/post_list.html'   # 목록 페이지 (응답 페이지)
     model = Post   # 데이터를 조회할 Model클래스 지정
@@ -60,3 +63,41 @@ class PostListView(ListView):
 # def list(request):
     # p_list = Post.objects.all()
     # return render(request, 'template', {'object_list':p_list})
+
+    # context data: view가 template에 전달하는 값들을 모아 둔 dictionary
+    # get_context_data() 메소드: 모든 generic view에 정의된 메소드. View class들이 생성해서 전달하는 context data 이회에 추가적으로 전달할 값이 있을 경우 overriding
+    def get_context_data(self, **kwargs):
+        # 부모클래스에 정의된 get_context_data() 호출 - 반환값: context data dictionary
+        # ListView: pagenate_by 설정 시 'paginator':Paginator객체 생성해서 context data에 제공
+        context = super().get_context_data(**kwargs)
+        paginator = context['paginator']
+        page_group_count = 10   # 한 페이지 그룹 당 페이지 수
+        # HttpRequest 객체 조회: self.request
+        current_page = int(self.request.GET.get('page', 1))   # 사용자가 요청한 페이지 번호(현재 페이지 그룹: ?page=번호 - 이 값을 조회), default=1
+
+        # 현재 페이지가 속한 페이지 그룹의 페이지 범위(index: pn.page_range)
+        start_idx = int((current_page-1)/page_group_count)*page_group_count
+        end_idx = start_idx+page_group_count
+        page_range = paginator.page_range[start_idx:end_idx]
+
+        # 이전/다음 페이지 그룹이 있는지 여부 + 이전/다음 페이지 번호
+        # 현재 페이지가 속한 page group이 이전 페이지(그룹)이 있는지 / 다음 페이지(그룹)이 있는지 => page group의 시작페이지/마지막 페이지 기준으로 찾는다 + 페이지 번호
+        start_page = paginator.page(page_range[0])   # 시작 페이지의 page 객체
+        end_page = paginator.page(page_range[-1])   # 마지막 페이지의 page 객체
+
+        has_previous = start_page.has_previous()   # 시작 페이지의 이전 페이지 존재 여부 (True/False)
+        has_next = end_page.has_next()   # 마지막 페이지의 다음 페이지 존재 여부
+
+        # 조회 결과를 context data에 추가 => super().get_context_data(**kwargs)에서 리턴받은 context data 딕셔너리에 추가
+        context['page_range'] = page_range
+        if has_previous:
+            context['has_previous'] = has_previous
+            context['previous_page_no'] = start_page.previous_page_number()   # 시작 페이지의 이전 페이지 번호
+        
+        if has_next:
+            context['has_next'] = has_next
+            context['next_page_no'] = end_page.next_page_number()   # 마지막 페이지의 다음 페이지 번호
+
+        return context   # overriding한 메소드에서 리턴한 context data dictionary가 template에 전달
+
+

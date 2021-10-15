@@ -12,11 +12,52 @@
     {% block script %}{% endblock script %}
 </head>
 <body>
+    <!-- 로그인 한 경우 메뉴: 로그아웃, 글쓰기
+         관리자 로그인: 관리자
+         로그아웃 상태에서 메뉴: 가입, 로그인
+         로그인 여부와 관계 없이 나오는 목록 글목록 -->
     <div class="container">
-        <a href="{% url 'board:list' %}">글 목록</a>
+        <nav>
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">홈</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'board:list' %}">글 목록</a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'board:create' %}">글 작성</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'account:logout' %}">로그아웃</a>
+                    </li>
+                {% endif %}
 
-        {% block contents %}
-        {% endblock contents %}
+                {% if not user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'account:join' %}">회원가입</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'account:login' %}">로그인</a>
+                    </li>
+                {% endif %}
+                
+                {% if user.is_superuser %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">관리페이지</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+<!-- user 변수
+    - 로그인 안 한 경우: AnonymousUser
+    - 로그인 한 경우: CustomUser
+    - 로그인 여부 확인: is_authenticated
+    - 관리자 여부 확인: is_superuser
+-->
+
+        {% block contents %}{% endblock contents %}
     </div>
 </body>
 </html>

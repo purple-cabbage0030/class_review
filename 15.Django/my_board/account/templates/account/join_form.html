@@ -1,0 +1,18 @@
+<!-- join_form.html -->
+{% extends 'layout.html' %}
+{% load bootstrap4 %}
+
+{% block title %}회원가입{% endblock title %}
+
+{% block contents %}
+<h1>회원가입</h1><br>
+<form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button type="submit" class="btn btn-primary">가입하기</button>
+    <button type="reset" class="btn btn-danger">초기화</button>
+
+</form>
+
+
+{% endblock contents %}
