@@ -14,6 +14,6 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post   # form field를 만들 때 참조/save() 시 데이터를 저장할 model 클래스 지정
-        fields = '__all__'   # 모델의 field 중 form field로 사용할 field 목록 지정
-        # fields = ['필드명',...] - 몇 개만 선택할 경우
-        # exclude = ['제외할 필드명', ...] - 몇 개만 뺄 경우
+        # fields = '__all__'   # 모델의 field 중 form field로 사용할 field 목록 지정
+        # fields = ['필드명',...]    # 몇 개만 선택할 경우
+        exclude = ['writer']   # 몇 개만 뺄 경우 - Post의 field 중 writer를 제외한 나머지를 Form에서 사용

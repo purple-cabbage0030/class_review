@@ -6,6 +6,7 @@
 <!-- object 변수: 조회 결과를 가지고 있는 Model(Post)객체 -->
 <h1 style="border-bottom: 1px solid gray; padding-bottom: 10px;">{{object.pk}}. {{object.title}}</h1>
 <div style="border-bottom: 1px solid gray; padding-bottom: 10px;">
+    <b>작성자</b>: {{object.writer.name}}
     <b>작성 일시</b>: {{object.create_at | date:"Y/m/d H:i:s"}}
     <b>수정 일시</b>: {{object.update_at | date:"Y/m/d H:i:s"}}
     <b>카테고리</b>: {{object.category.category_name}}
@@ -13,8 +14,14 @@
 <div style="border-bottom: 1px solid gray; padding-bottom: 10px;">
     {{object.content | linebreaksbr}}
 </div>
-<p style="padding:5px">
-    <a href="{% url 'board:update' object.pk %}" class="btn btn-primary">글 수정</a>
-    <a href="{% url 'board:delete' object.pk %}" class="btn btn-danger" onclick="return confirm('정말 삭제하겠습니까?')">글 삭제</a>
-</p>
+<!-- 글 수정/삭제 버튼은 글 작성자만 볼 수 있도록 처리 -->
+<!-- 작성자 = object.writer, 로그인한 user = user -->
+{% if user.is_authenticated %}
+    {% if user.pk == object.writer.pk %}
+        <p style="padding:5px">
+            <a href="{% url 'board:update' object.pk %}" class="btn btn-primary">글 수정</a>
+            <a href="{% url 'board:delete' object.pk %}" class="btn btn-danger" onclick="return confirm('정말 삭제하겠습니까?')">글 삭제</a>
+        </p>
+    {% endif %}
+{% endif %}
 {% endblock contents %}
