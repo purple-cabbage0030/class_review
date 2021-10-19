@@ -23,3 +23,9 @@ urlpatterns = [
     path('board/', include('board.urls')),
     path('account/', include('account.urls')),
 ]
+
+# 업로드된 파일을 client가 요청할 수 있도록 처리
+from django.conf.urls.static import static
+from . import settings
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# 어떤 url로 요청이 들어왔을 때 어떤 경로에 가서 업로드된 파일을 찾을 것인지 등록

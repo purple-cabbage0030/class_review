@@ -32,10 +32,17 @@ class Post(models.Model):
 
     title = models.CharField(max_length=255, verbose_name='글 제목')   # not null -> null/none/빈 문자열은 비허용
     content = models.TextField(verbose_name='글 내용')   # TextField: 대용량 text
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)   # nullable 컬럼, 빈 문자열 허용 컬럼으로 설정(blank는 form 검증과 관련)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='카테고리')   # nullable 컬럼, 빈 문자열 허용 컬럼으로 설정(blank는 form 검증과 관련)
     create_at = models.DateTimeField(auto_now_add=True, verbose_name='작성일시')   # auto_now_add: insert할 때만 일시를 자동 입력
     update_at = models.DateTimeField(auto_now=True, verbose_name='수정일시')   # auto_now=True: insert/update할 때 일시를 자동 입력
 
+    #################################################################################
+    # 업로드 파일 저장을 위한 Field를 추가
+    # MEDIA_ROOT/files 에 up_file 저장
+    # MEDIA_ROOT/images/해당날짜 - 디렉토리에 이미지 저장
+    #################################################################################
+    up_file = models.FileField(verbose_name='파일 업로드', upload_to='files', null=True, blank=True)   # 업로드된 모든 종류의 파일을 위한 model field
+    up_img = models.ImageField(verbose_name='이미지 업로드', upload_to='images/%Y_%m_%d', null=True, blank=True)   # 이미지 필드는 이미지 사이즈 제공. 그냥 FileField로 받아도 됨
 
     def __str__(self):
         return f"{self.id}. [{self.category.category_name}] {self.title}"

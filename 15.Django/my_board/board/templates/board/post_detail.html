@@ -13,6 +13,17 @@
 </div>
 <div style="border-bottom: 1px solid gray; padding-bottom: 10px;">
     {{object.content | linebreaksbr}}
+    {# 업로드된 파일, 이미지 링크 추가 #}
+    {% if object.up_file %}
+        <!-- 업로드된 파일이 있다면 다운로드 가능한 링크
+             파일필드/폼필드.url이라는 속성으로 url을 만들어준다 -->
+        <br>
+        <a href="{{object.up_file.url}}">{{object.up_file}}</a>
+    {% endif %}
+    {% if object.up_img %}
+        <br>
+        <img src="{{object.up_img.url}}" width="500">
+    {% endif %}
 </div>
 <!-- 글 수정/삭제 버튼은 글 작성자만 볼 수 있도록 처리 -->
 <!-- 작성자 = object.writer, 로그인한 user = user -->

@@ -119,10 +119,10 @@ USE_TZ = True
 #################################################################################
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-# app디렉토리/static 디렉토리 아래 저장
+# app디렉토리/static/app이름 디렉토리 아래에는 파일들 저장하는 역할만
 # python manage.py collectstatic 명령어로 static root directory에 모은 뒤 서비스한다
 #################################################################################
-STATIC_ROOT = os.path.join(BASE_DIR, 'statics')   # static 파일들을 모을 root 경로
+STATIC_ROOT = os.path.join(BASE_DIR, 'statics')   # static 파일들을 모을 root 경로 - 서비스를 위한 경로
 STATIC_URL = '/static/'   # client에서 static 파일들을 요청할 url의 시작 path
 
 # app/static 이외의 디렉토리에 static 파일들을 저장할 경우 그 디렉토리를 정의
@@ -148,3 +148,11 @@ LOGOUT_REDIRECT_URL = '/'
 # 로그인 상태에서 요청 가능한 view를 로그인하지 않고 요청했을 때 이동할 url
 # login_form을 요청하는 url 등록
 LOGIN_URL = '/account/login'
+
+#################################################################################
+# media 파일 (upload된 파일) 경로 설정
+#################################################################################
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')   # 업로드된 파일들이 저장될 root 디렉토리
+MEDIA_URL = '/media/'   # client(template)에서 업로드될 파일을 요청할 때 사용할 시작 url
+
+

@@ -11,6 +11,7 @@
             <th>NO.</th>
             <th>카테고리</th>
             <th>글 제목</th>
+            <th>작성자</th>
             <th>작성일시</th>
         </tr>
     </thead>
@@ -20,6 +21,7 @@
             <td>{{ post.pk }}</td>
             <td>[{{ post.category }}]</td>
             <td><a href="{% url 'board:detail' post.pk %}">{{ post.title }}</a></td>
+            <td>{{ post.writer.name }}</td>
             <td>{{ post.create_at | date:"Y/m/d H:i" }}</td>
         </tr>
         {% endfor %}

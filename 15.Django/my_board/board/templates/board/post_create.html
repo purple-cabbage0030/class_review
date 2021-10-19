@@ -10,13 +10,13 @@ from 출력 시 bootstrap 디자인 적용하는 패키지
 
 {# CreateView에서 ModelForm객체를 form이란 이름으로 context object로 전달 - {'form':PostFrom()} #}
 {% block contents %}
+<!-- 파일 업로드 시 form 태그의 method는 무조건 post.
+     enctype=multipart/form-data도 지정해줘야 함 ("application/x-www-form-urlencoded" 얘가 디폴트 그냥 문서만 주고받을 때) -->
 <h1>글 등록</h1>
-<form method="post">  <!-- action을 지정하지 않으면 현재 page를 요청한 url과 같은 url로 요청함 -->
+<form method="post" enctype="multipart/form-data">  <!-- action을 지정하지 않으면 현재 page를 요청한 url과 같은 url로 요청함 -->
     {% csrf_token%}
-    <!-- <table> -->
         {% bootstrap_form form %}
     <!-- {{form}}  ModelForm을 이용해서 입력 양식을 작성 -->
-    <!-- </table> -->
     <button type="submit" class="btn btn-primary">등록하기</button>
     <button type="reset" class="btn btn-primary">초기화</button>
 </form>
